@@ -3,9 +3,6 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Con
 from urllib.parse import urlparse
 from bypass import BYPASS_HANDLERS, generic_bypass
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🎯 Send me any shortened URL and I’ll try to bypass it!")
-
 def get_domain(url):
     return urlparse(url).netloc.replace("www.", "")
 
@@ -14,10 +11,13 @@ def route_bypass(url):
     bypass_func = BYPASS_HANDLERS.get(domain, generic_bypass)
     return bypass_func(url)
 
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🎯 Send me a shortened link and I'll bypass it!")
+
 async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
-    if "http" in text:
-        await update.message.reply_text("⏳ Bypassing, please wait...")
+    text = update.message.text.strip()
+    if text.startswith("http"):
+        await update.message.reply_text("⏳ Bypassing...")
         result = route_bypass(text)
         await update.message.reply_text(f"🔗 Bypassed: {result}")
     else:
@@ -25,12 +25,9 @@ async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == "__main__":
     import os
-
-    BOT_TOKEN = os.getenv("BOT_TOKEN") or "YOUR_BOT_TOKEN"
-
+    BOT_TOKEN = os.getenv("BOT_TOKEN") or "YOUR_BOT_TOKEN_HERE"
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_link))
-
     print("🚀 Bypass Pro Bot is running...")
     app.run_polling()

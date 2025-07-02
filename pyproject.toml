@@ -1,0 +1,9 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+dependencies = [
+    "python-telegram-bot==20.7",
+    "requests",
+    "beautifulsoup4"
+]

@@ -3,5 +3,5 @@ from .urllinkshort import bypass_urllinkshort
 
 BYPASS_HANDLERS = {
     "urllinkshort.in": bypass_urllinkshort,
-    # Add more domains and their functions here
+    # Add more domain-specific bypass functions here
 }

@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 from urllib.parse import urlparse
 from bypass import BYPASS_HANDLERS, generic_bypass
+import os
 
 def get_domain(url):
     return urlparse(url).netloc.replace("www.", "")
@@ -24,8 +25,7 @@ async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Please send a valid URL.")
 
 if __name__ == "__main__":
-    import os
-    BOT_TOKEN = os.getenv("7494439315:AAEKj2V2qMi3BO3SQSlWoeGCLUqGiZ1GLXE") or "7494439315:AAEKj2V2qMi3BO3SQSlWoeGCLUqGiZ1GLXE"
+    BOT_TOKEN = os.getenv("BOT_TOKEN") or "YOUR_BOT_TOKEN_HERE"
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_link))

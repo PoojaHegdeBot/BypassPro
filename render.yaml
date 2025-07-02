@@ -8,4 +8,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.8
       - key: BOT_TOKEN
-        value: YOUR_TELEGRAM_BOT_TOKEN
+        value: 7494439315:AAEKj2V2qMi3BO3SQSlWoeGCLUqGiZ1GLXE

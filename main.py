@@ -25,7 +25,7 @@ async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("❌ Please send a valid URL.")
 
 if __name__ == "__main__":
-    BOT_TOKEN = os.getenv("BOT_TOKEN") or "YOUR_BOT_TOKEN_HERE"
+    BOT_TOKEN = os.getenv("7494439315:AAEKj2V2qMi3BO3SQSlWoeGCLUqGiZ1GLXE") or "YOUR_BOT_TOKEN_HERE"
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_link))
